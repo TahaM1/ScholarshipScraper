@@ -18,14 +18,13 @@ htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser())
 
 # Note: Xpath is a language for navigating through a XML file structure
 
-
+# Querys HTML tree for <a> tags containing keywords
 result = htmlTree.xpath(
-    "//a[contains(lower-case(text()),'grant') or contains(lower-case(text()),'scholarship')]"
+    "//a[contains(text(),'grant') or contains(text(),'Scholarship')]"
 )
 
 for element in result:
     link = element.attrib["href"]
     print(link)
-    print(element.text)
 
 print(result)
