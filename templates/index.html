@@ -1,9 +1,17 @@
-{% extends 'layout.html'%} {% block title %} ScholarshipScraper {% endblock %}
+{% extends 'layout.html'%} 
+
+{% block title %} ScholarshipScraper {% endblock %}
+
 {% block body %}
 <h1>
-  Welcome to ScholarshipScraper!
+    Welcome to ScholarshipScraper!
 </h1>
-<p>
-  Below you can find intructions of how to use this program
-</p>
+<form action="/check" method="post">
+    
+    <input type="text" name="link" placeholder="Enter link here"/>
+    <br>
+    <input type="submit" value="Submit"/>
+
+</form>
+
 {% endblock %}
