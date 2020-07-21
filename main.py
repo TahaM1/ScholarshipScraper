@@ -6,25 +6,25 @@ import time
 
 # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
-url1 = "http://www.miltonchamber.ca/"
-url2 = "https://www.mpl.on.ca/"
-headers = {"User-Agent": "Web Scraper 3000"}
 
-# HTML DOCUMENT in Bytes
-htmlDoc = requests.get(url1, headers=headers).content
+def findALink(url):
+    headers = {"User-Agent": "Web Scraper 3000"}
 
-# Parses the Bytes and returns a ElementTree object
-htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser())
+    try:
+        # HTML DOCUMENT in Bytes
+        htmlDoc = requests.get(url, headers=headers).content
 
-# Note: Xpath is a language for navigating through a XML file structure
+        # Parses the Bytes and returns a ElementTree object
+        htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser())
 
-# Querys HTML tree for <a> tags containing keywords
-result = htmlTree.xpath(
-    "//a[contains(text(),'grant') or contains(text(),'Scholarship')]"
-)
+        # Note: Xpath is a language for navigating through a XML file structure
 
-for element in result:
-    link = element.attrib["href"]
-    print(link)
+        # Querys HTML tree for <a> tags containing keywords
+        result = htmlTree.xpath("//a[contains(text(),'Scholarship')]")
 
-print(result)
+        return result[0].attrib["href"]
+
+    # URL entered couldn't be found
+    except Exception:
+        return None
+
