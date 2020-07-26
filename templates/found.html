@@ -9,9 +9,15 @@
         ScholarshipScraper
     </h1>
     <p>
-        We found a direct link to a Scholarship page!
+        We found some Scholarships!
     </p>
-    <a href={{link}}> 
-        Scholarship
-    </a>
+    <table>
+        {% for row in list %}
+        <tr>
+            <td>
+                {{row}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
