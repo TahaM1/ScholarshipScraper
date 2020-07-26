@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from main import findALink
 import requests
 import requests.exceptions
+import time
 
 # FLASK Setup
 app = Flask(__name__)
@@ -16,18 +17,21 @@ def index():
 @app.route("/check", methods=["GET", "POST"])
 def check():
 
-    link = request.form.get("link")
+    # Links to Scrape
+    dictOfLinks = request.form
 
-    # Finds Link to Scholarship page
-    pageLink = findALink(link)
+    list = []
+    for value in dictOfLinks.values():
+        pageLink = findALink(value)
+        if pageLink:
+            list.append(pageLink)
 
-    if pageLink == None:
+    if not list:
         return render_template(
-            "apology.html",
-            text="Unfortunately the site you have Entered doesn't exist :(",
+            "apology.html", text="None of those sites have scholarships",
         )
 
-    return render_template("found.html", link=pageLink)
+    return render_template("found.html", list=list)
 
 
 # Not using currently
