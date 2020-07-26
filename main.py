@@ -20,11 +20,33 @@ def findALink(url):
         # Note: Xpath is a language for navigating through a XML file structure
 
         # Querys HTML tree for <a> tags containing keywords
-        result = htmlTree.xpath("//a[contains(text(),'Scholarship')]")
+        result = htmlTree.xpath("//a[contains(@href,'scholarship')]")
 
         return result[0].attrib["href"]
 
     # URL entered couldn't be found
     except Exception:
+        print("Something went wrong with scraping the Site!")
         return None
 
+
+# PERFORMANCE TESTING
+# def doesWebsiteExist(url):
+
+#     try:
+#         request = requests.head(url, headers={"User-Agent": "Web Scraper 3000"})
+#     except Exception:
+#         return False
+#     return True
+
+
+# t0 = time.perf_counter()
+# findALink("https://www.miltonchamber.ca")
+# t1 = time.perf_counter()
+
+# print(t1 - t0)
+
+# t0 = time.perf_counter()
+# findALink2("https://www.miltonchamber.ca")
+# t1 = time.perf_counter()
+# print(t1 - t0)
