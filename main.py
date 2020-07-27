@@ -12,7 +12,10 @@ def findALink(url):
 
     try:
         # HTML DOCUMENT in Bytes
+        start = time.perf_counter()
         htmlDoc = requests.get(url, headers=headers).content
+        end = time.perf_counter()
+        print(end - start)
 
         # Parses the Bytes and returns a ElementTree object
         htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser())
@@ -20,9 +23,15 @@ def findALink(url):
         # Note: Xpath is a language for navigating through a XML file structure
 
         # Querys HTML tree for <a> tags containing keywords
-        result = htmlTree.xpath("//a[contains(@href,'scholarship')]")
+        result = htmlTree.xpath(
+            "//a[contains(@href,'scholarship') or contains(@href,'bursaries')]"
+        )
 
-        return result[0].attrib["href"]
+        # Direct link is found
+        if result:
+            return result[0].attrib["href"]
+        else:
+            return None
 
     # URL entered couldn't be found
     except Exception:
