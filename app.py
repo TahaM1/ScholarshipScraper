@@ -22,6 +22,7 @@ def check():
 
     list = []
     for value in dictOfLinks.values():
+        # pageLink = checkPerformance(findALink, value)
         pageLink = findALink(value)
         if pageLink:
             list.append(pageLink)
@@ -32,6 +33,14 @@ def check():
         )
 
     return render_template("found.html", list=list)
+
+
+def checkPerformance(function, value):
+    start = time.perf_counter()
+    url = function(value)
+    end = time.perf_counter()
+    print(end - start)
+    return url
 
 
 # Not using currently
