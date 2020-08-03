@@ -14,12 +14,9 @@ lxml==4.5.2
 MarkupSafe==1.1.1
 mypy-extensions==0.4.3
 pathspec==0.7.0
-regex @ file:///C:/ci/regex_1593419644658/work
 requests==2.24.0
 six==1.15.0
-toml @ file:///tmp/build/80754af9/toml_1592853716807/work
 typed-ast==1.4.1
-typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1592847887441/work
 urllib3==1.25.9
 webencodings==0.5.1
 Werkzeug==1.0.1
