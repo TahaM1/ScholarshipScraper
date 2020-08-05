@@ -12,10 +12,10 @@ def findALink(url):
 
     try:
         # HTML DOCUMENT in Bytes
-        start = time.perf_counter()
+        # start = time.perf_counter()
         htmlDoc = requests.get(url, headers=headers).content
-        end = time.perf_counter()
-        print(end - start)
+        # end = time.perf_counter()
+        # print(end - start)
 
         # Parses the Bytes and returns a ElementTree object
         htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser())
@@ -24,12 +24,17 @@ def findALink(url):
 
         # Querys HTML tree for <a> tags containing keywords
         result = htmlTree.xpath(
-            "//a[contains(@href,'scholarship') or contains(@href,'bursaries')]"
+            "//a[contains(@href,'scholarship') or contains(@href,'bursar')]"
         )
 
         # Direct link is found
         if result:
-            return result[0].attrib["href"]
+            # finds first URL that is accessible
+            for element in result:
+                url = element.attrib["href"]
+                print(url)
+                if doesWebsiteExist(url):
+                    return url
         else:
             return None
 
@@ -40,13 +45,12 @@ def findALink(url):
 
 
 # PERFORMANCE TESTING
-# def doesWebsiteExist(url):
-
-#     try:
-#         request = requests.head(url, headers={"User-Agent": "Web Scraper 3000"})
-#     except Exception:
-#         return False
-#     return True
+def doesWebsiteExist(url):
+    try:
+        request = requests.head(url, headers={"User-Agent": "Web Scraper 3000"})
+    except Exception:
+        return False
+    return True
 
 
 # t0 = time.perf_counter()
