@@ -35,8 +35,8 @@ def findALink(url):
                 print(url)
                 if doesWebsiteExist(url):
                     return url
-        else:
-            return None
+        # No accessible URLs were found
+        return None
 
     # URL entered couldn't be found
     except Exception:
