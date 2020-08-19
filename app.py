@@ -1,12 +1,41 @@
 from flask import Flask, render_template, url_for, request, redirect
-from main import findALink
+from main import scrapeSite, findALink
 import requests
 import requests.exceptions
 import time
+import asyncio
+from asyncRequests import fetch, writeFile
 
 # FLASK Setup
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+
+@app.route("/api/scrape", methods=["POST"])
+def api():
+
+    links = list(request.form.values())
+    LinkList = []
+    print(links)
+
+    # extract html docs
+    async def collectHTML():
+        HTMLlist = await asyncio.gather(*[fetch(url) for url in links])
+
+        for n, html in enumerate(HTMLlist):
+            if html != None:
+                link = scrapeSite(html)
+                if link != None:
+                    LinkList.append(link)
+
+    asyncio.run(collectHTML())
+
+    if not LinkList:
+        return render_template(
+            "apology.html", text="None of those sites have scholarships",
+        )
+
+    return render_template("found.html", list=LinkList)
 
 
 @app.route("/")
