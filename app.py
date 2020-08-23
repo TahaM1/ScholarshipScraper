@@ -14,21 +14,25 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 @app.route("/api/scrape", methods=["POST"])
 def api():
 
-    links = list(request.form.values())
-    LinkList = []
+    # filters out empty urls and returns list
+    links = list(filter(None, request.form.values()))
     print(links)
+
+    LinkList = []
 
     # extract html docs
     async def collectHTML():
         HTMLlist = await asyncio.gather(*[fetch(url) for url in links])
-
+        print("Done Scraping!")
         for n, html in enumerate(HTMLlist):
             if html != None:
                 link = scrapeSite(html)
                 if link != None:
                     LinkList.append(link)
 
-    asyncio.run(collectHTML())
+    asyncio.run(collectHTML(), debug=True)
+
+    print("Done")
 
     if not LinkList:
         return render_template(
