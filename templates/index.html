@@ -8,31 +8,20 @@
 </h1>
 <form action="/api/scrape" method="post">
     
-    <input type="url" name="link0" placeholder="Enter link here"/><br>
+    <p>Which Directory would you like to Search?</p>
+    <input type="radio" id="Yellowpages.ca" name="directory" value="0" required>
+    <label for="Yellowpages.ca">Yellowpages.ca</label>
+
+    <input type="radio" id="Yellowpages.com" name="directory" value="1" required
+    <label for="Yellowpages.com">Yellowpages.com</label><br><br>
     
-    <input type="url" name="link1" placeholder="Enter link here"/><br>
+    <label for="search">What are you searching for?</label><br>
+    <input type="text" id="search" name="search" placeholder="Eg. Dental Clinic"/><br><br>
     
-    <input type="url" name="link2" placeholder="Enter link here"/><br>
+
+    <label for="location">Where are you searching?</label><br>
+    <input type="text" id="location" name="location" placeholder="Eg. Toronto ON"/><br>
     
-    <input type="url" name="link3" placeholder="Enter link here"/><br>
-    
-    <input type="url" name="link4" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link5" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link6" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link7" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link8" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link9" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link10" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link11" placeholder="Enter link here"/><br>
-
-    <input type="url" name="link12" placeholder="Enter link here"/><br>
 
     <input type="submit" value="Submit"/>
 
