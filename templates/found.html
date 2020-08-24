@@ -12,11 +12,12 @@
         We found some Scholarships!
     </p>
     <table>
+        
         {% for row in list %}
         <tr>
-            <td>
+            <a href={{row}}>
                 {{row}}
-            </td>
+            </a>   
         </tr>
         {% endfor %}
     </table>

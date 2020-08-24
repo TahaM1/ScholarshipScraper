@@ -5,6 +5,7 @@ import requests.exceptions
 import time
 import asyncio
 from asyncRequests import fetch, writeFile
+from scrape import findWebsitesInDirectory
 
 # FLASK Setup
 app = Flask(__name__)
@@ -14,22 +15,29 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 @app.route("/api/scrape", methods=["POST"])
 def api():
 
-    links = list(request.form.values())
+    userInput = request.form
+
+    links = findWebsitesInDirectory(
+        int(userInput["directory"]), userInput["search"], userInput["location"]
+    )
+
     LinkList = []
-    print(links)
 
     # extract html docs
     async def collectHTML():
         HTMLlist = await asyncio.gather(*[fetch(url) for url in links])
-
+        print("Done Scraping!")
         for n, html in enumerate(HTMLlist):
+
             if html != None:
                 link = scrapeSite(html)
                 if link != None:
                     LinkList.append(link)
 
-    asyncio.run(collectHTML())
+    asyncio.run(collectHTML(), debug=True)
 
+    print("Done")
+    print(LinkList)
     if not LinkList:
         return render_template(
             "apology.html", text="None of those sites have scholarships",
