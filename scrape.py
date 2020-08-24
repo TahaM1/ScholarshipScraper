@@ -10,7 +10,7 @@ baseURLS = [
 header = {"User-Agent": "Webscraper 3000"}
 
 
-def embedKeyWords(baseURL, keywords, location):
+def formatURL(baseURL, keywords, location):
     keywords = keywords.strip().replace(" ", "+")
     location = location.strip().replace(" ", "+")
     print(f"{keywords} {location}")
@@ -18,15 +18,25 @@ def embedKeyWords(baseURL, keywords, location):
     return baseURL
 
 
-url = embedKeyWords(str(baseURLS[0]), "dental clinic", "Orange Corners Omemee ON")
+def constructHTMLTree(htmlDoc):
+    return etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser(encoding="utf-8"))
 
-htmlDoc = requests.get(url, headers=header).content
+
+def requestHTML(url):
+    headers = {"User-Agent": "Webscraper 3000"}
+    return requests.get(url, headers=headers).content
 
 
-htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser(encoding="utf-8"))
+url = formatURL(baseURLS[0], "dental clinic", "Orange Corners Omemee ON")
+
+htmlDoc = requestHTML(url)
+
+htmlTree = constructHTMLTree(htmlDoc)
 
 results = htmlTree.xpath("//span[text() = 'Website']/../@href")
+
 for result in results:
     result = "https://www.yellowpages.ca" + result
     print(result)
+
 print(len(results))
