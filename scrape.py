@@ -4,17 +4,20 @@ import io
 from urllib.parse import unquote
 import time
 
+# urls with the parameters/paths removed and replaced with '-'
 baseDirectoryURLS = [
     "https://www.yellowpages.ca/search/si/1/-/-",
     "https://www.yellowpages.com/search?search_terms=-&geo_location_terms=-",
 ]
 
+# Index of these correspond with the urls of the baseDirectory
+# Each directory will be parsed differently
 XpathForDirectorys = ["//span[text() = 'Website']/../@href"]
 
 header = {"User-Agent": "Webscraper 3000"}
 
-
-def formatURL(baseURLIndex, keywords, location):
+# embeds params/paths into url based on baseURL given
+def embedIntoURL(baseURLIndex, keywords, location):
     baseURL = baseDirectoryURLS[baseURLIndex]
 
     if baseURLIndex == 0:
@@ -27,6 +30,7 @@ def formatURL(baseURLIndex, keywords, location):
     return baseURL
 
 
+# strips excess from urls found based on the baseURL(directory)
 def formatLinks(baseURLIndex, links):
     if baseURLIndex == 0:
         for i in range(len(links)):
@@ -36,10 +40,12 @@ def formatLinks(baseURLIndex, links):
         pass
 
 
+# Parse html file in bytes into Lxml Tree
 def constructHTMLTree(htmlDoc):
     return etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser(encoding="utf-8"))
 
 
+# retrieves btyes of html
 def requestHTML(url):
     headers = {"User-Agent": "Webscraper 3000"}
 
@@ -52,22 +58,23 @@ def performance(func):
         t = time.perf_counter()
         output = func(*args, **kw)
         t2 = time.perf_counter() - t
-        print('--------------------------------------------------------')
+        print("--------------------------------------------------------")
         print(f"{func} took {t2}s")
-        print('--------------------------------------------------------')
+        print("--------------------------------------------------------")
         return output
 
     return wrapper
 
 
+# Finds websites from directory based off search and location params
 @performance
 def findWebsitesInDirectory(baseURLIndex, search, location):
     assert baseURLIndex < len(baseDirectoryURLS)
 
     print(f"base url is {baseDirectoryURLS[baseURLIndex]}")
 
-    # Format the params and embed into baseURL
-    url = formatURL(baseURLIndex, search, location)
+    # Format the params/paths and embeds into baseURL
+    url = embedIntoURL(baseURLIndex, search, location)
 
     # Request html from embeddedURL
     htmlDoc = requestHTML(url)
@@ -81,8 +88,3 @@ def findWebsitesInDirectory(baseURLIndex, search, location):
     # return list of links
     return formatLinks(baseURLIndex, results)
 
-
-listOfLinks = findWebsitesInDirectory(0, "dental clinic", "Orange Corners Omemee ON")
-# print(len(listOfLinks))
-for link in listOfLinks:
-    print(link)
