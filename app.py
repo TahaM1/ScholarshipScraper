@@ -51,6 +51,12 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/time")
+def returnTime():
+    currenttime = time.time()
+    return {"time": currenttime}
+
+
 @app.route("/check", methods=["GET", "POST"])
 def check():
 
