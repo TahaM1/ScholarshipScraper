@@ -8,7 +8,7 @@ from asyncRequests import fetch, writeFile
 from scrape import findWebsitesInDirectory
 
 # FLASK Setup
-app = Flask(__name__)
+app = Flask(__name__, static_folder="react-frontend/build", static_url_path="/")
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 
@@ -43,12 +43,12 @@ def api():
             "apology.html", text="None of those sites have scholarships",
         )
 
-    return render_template("found.html", list=LinkList)
+    return {"links": LinkList}
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return app.send_static_file("index.html")
 
 
 @app.route("/time")
