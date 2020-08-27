@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from main import scrapeSite, findALink
 import requests
 import requests.exceptions
@@ -15,7 +15,8 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 @app.route("/api/scrape", methods=["POST"])
 def api():
 
-    userInput = request.form
+    userInput = request.json
+    print(userInput)
 
     links = findWebsitesInDirectory(
         int(userInput["directory"]), userInput["search"], userInput["location"]
@@ -51,10 +52,12 @@ def index():
     return app.send_static_file("index.html")
 
 
-@app.route("/time")
+@app.route("/time", methods=["GET", "POST"])
 def returnTime():
+    # print(request.headers)
+    print(request.get_json())
     currenttime = time.time()
-    return {"time": currenttime}
+    return jsonify({"time": currenttime})
 
 
 @app.route("/check", methods=["GET", "POST"])
