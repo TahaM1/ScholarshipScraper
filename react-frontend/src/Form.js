@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Form extends Component {
+export default class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8,12 +8,12 @@ class Form extends Component {
       search: "",
       location: "",
     };
+
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   async handleFormSubmit(event) {
-    console.log(this.state.directory);
     event.preventDefault();
 
     const data = {
@@ -33,27 +33,11 @@ class Form extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          this.props.updateResponse(data.links);
         });
     } catch (error) {
       console.log(error);
     }
-
-    // axios({
-    //   method: "post",
-    //   url: "/time",
-    //   data: data,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     mode: "cors",
-    //   },
-    // })
-    //   .then(function (res) {
-    //     console.log(res);
-    //   })
-    //   .catch(function (e) {
-    //     console.log(e);
-    //   });
   }
 
   handleFormChange(event) {
@@ -129,4 +113,3 @@ class Form extends Component {
     );
   }
 }
-export default Form;
