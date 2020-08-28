@@ -3,22 +3,34 @@ import logo from "./logo.svg";
 import "./App.css";
 import Form from "./Form";
 
-function App() {
-  const [currentTime, setCurrentTime] = useState(0);
+class App extends React.Component {
+  state = {
+    links: [],
+  };
 
-  // useEffect(() => {
-  //   fetch("/time")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setCurrentTime(data.time);
-  //     });
-  // }, []);
+  updateLinks = (data) => {
+    this.setState({
+      links: data,
+    });
+    console.log(this.state.links);
+  };
 
-  return (
-    <div className="App">
-      <Form />
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <div>
+          <Form updateResponse={this.updateLinks} />
+        </div>
+        <div>
+          {this.state.links.length > 0 ? (
+            <div>{this.state.links}</div>
+          ) : (
+            <div>Api has not been fetched</div>
+          )}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
