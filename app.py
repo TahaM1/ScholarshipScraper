@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from main import scrapeSite, findALink
 import requests
 import requests.exceptions
@@ -8,14 +8,15 @@ from asyncRequests import fetch, writeFile
 from scrape import findWebsitesInDirectory
 
 # FLASK Setup
-app = Flask(__name__)
+app = Flask(__name__, static_folder="react-frontend/build", static_url_path="/")
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 
 @app.route("/api/scrape", methods=["POST"])
 def api():
 
-    userInput = request.form
+    userInput = request.json
+    print(userInput)
 
     links = findWebsitesInDirectory(
         int(userInput["directory"]), userInput["search"], userInput["location"]
@@ -43,12 +44,20 @@ def api():
             "apology.html", text="None of those sites have scholarships",
         )
 
-    return render_template("found.html", list=LinkList)
+    return {"links": LinkList}
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return app.send_static_file("index.html")
+
+
+@app.route("/time", methods=["GET", "POST"])
+def returnTime():
+    # print(request.headers)
+    print(request.get_json())
+    currenttime = time.time()
+    return jsonify({"time": currenttime})
 
 
 @app.route("/check", methods=["GET", "POST"])
