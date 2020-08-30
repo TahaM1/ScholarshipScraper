@@ -24,17 +24,9 @@ const AboutCard = () => {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          About
-        </Typography>
-        <Typography variant="body2" component="p">
-          ScholarshipScraper is a website designed to help you find LOCAL
-          scholarships
-        </Typography>
-      </CardContent>
-    </Card>
+    <Typography variant="overline" component="p">
+      Find LOCAL scholarships faster
+    </Typography>
   );
 };
 
