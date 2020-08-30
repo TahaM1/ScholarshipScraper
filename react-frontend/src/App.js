@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Form from "./components/Form";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import Header from "./components/Header";
 import AboutCard from "./components/AboutCard";
+import Title from "./components/Title";
 
 class App extends React.Component {
   state = {
@@ -34,25 +35,29 @@ class App extends React.Component {
       message = <div>Api hasn't been called. Submit the form above.</div>;
     }
 
+    const old = () => {
+      return (
+        <div>
+          <div>
+            <Form updateResponse={this.updateLinks} />
+          </div>
+          <div>{message}</div>
+        </div>
+      );
+    };
+
     return (
       <div className="App">
         <Grid container direction="column">
-          <Grid item>
-            <Header />
-          </Grid>
           <Grid container>
             <Grid item xs={0} sm={2} md={3} />
             <Grid item xs={12} sm={8} md={6}>
+              <Title />
               <AboutCard />
             </Grid>
             <Grid item xs={0} sm={2} md={3} />
           </Grid>
         </Grid>
-
-        <div>
-          <Form updateResponse={this.updateLinks} />
-        </div>
-        <div>{message}</div>
       </div>
     );
   }
