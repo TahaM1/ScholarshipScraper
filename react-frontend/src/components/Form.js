@@ -10,6 +10,8 @@ import {
   RadioGroup,
   InputLabel,
   Input,
+  Grid,
+  Typography,
 } from "@material-ui/core";
 
 export default class Form extends Component {
@@ -65,44 +67,66 @@ export default class Form extends Component {
   render() {
     return (
       <div>
-        <p>Which Directory would you like to Search?</p>
-
         <form onSubmit={this.handleFormSubmit}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Select a Directory</FormLabel>
-            <RadioGroup
-              aria-label="quiz"
-              name="directory"
-              onChange={this.handleFormChange}
-            >
-              <FormControlLabel
-                value="0"
-                control={<Radio />}
-                label="Yellow Pages (CA)"
-              />
-              <FormControlLabel
-                value="1"
-                control={<Radio />}
-                label="Yellow Pages (US)"
-              />
-            </RadioGroup>
-            <FormHelperText></FormHelperText>
-          </FormControl>
-          <TextField
-            variant="standard"
-            name="search"
-            placeholder="Eg. Soccer Club"
-            onChange={this.handleFormChange}
-          ></TextField>
-          <TextField
-            variant="standard"
-            name="location"
-            placeholder="Eg. Toronto ON"
-            onChange={this.handleFormChange}
-          ></TextField>
-          <Button type="submit" variant="contained">
-            Submit
-          </Button>
+          <Grid container direction="column" alignItems="center">
+            <FormControl component="fieldset">
+              <Grid item>
+                <FormLabel component="legend">
+                  Which Directory would you like to Search?
+                </FormLabel>
+              </Grid>
+
+              <Grid container item xs={12}>
+                <Grid item xs={2} />
+                <Grid item xs={8}>
+                  <RadioGroup
+                    aria-label="quiz"
+                    name="directory"
+                    onChange={this.handleFormChange}
+                  >
+                    <FormControlLabel
+                      value="0"
+                      control={<Radio />}
+                      label="Yellow Pages (CA)"
+                    />
+                    <FormControlLabel
+                      value="1"
+                      control={<Radio />}
+                      label="Yellow Pages (US)"
+                    />
+                  </RadioGroup>
+                  <Grid item xs={2} />
+                </Grid>
+              </Grid>
+
+              <FormHelperText></FormHelperText>
+            </FormControl>
+
+            <Grid container item direction="row" justify="center" spacing={3}>
+              <Grid item>
+                <TextField
+                  variant="standard"
+                  name="search"
+                  label="Search"
+                  placeholder="Eg. Soccer Club"
+                  onChange={this.handleFormChange}
+                ></TextField>
+              </Grid>
+              <Grid item>
+                <TextField
+                  variant="standard"
+                  name="location"
+                  label="Location"
+                  placeholder="Eg. Toronto ON"
+                  onChange={this.handleFormChange}
+                ></TextField>
+              </Grid>
+            </Grid>
+
+            <Button type="submit" variant="contained">
+              Submit
+            </Button>
+          </Grid>
         </form>
         {/* 
         <form onSubmit={this.handleFormSubmit}>
