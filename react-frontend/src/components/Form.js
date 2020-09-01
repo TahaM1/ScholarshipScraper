@@ -12,6 +12,7 @@ import {
   Input,
   Grid,
   Typography,
+  Box,
 } from "@material-ui/core";
 
 export default class Form extends Component {
@@ -69,42 +70,45 @@ export default class Form extends Component {
       <div>
         <form onSubmit={this.handleFormSubmit}>
           <Grid container direction="column" alignItems="center">
-            <FormControl component="fieldset">
-              <Grid item>
-                <FormLabel component="legend">
-                  Which Directory would you like to Search?
-                </FormLabel>
-              </Grid>
-
-              <Grid container item xs={12}>
-                <Grid item xs={2} />
-                <Grid item xs={8}>
-                  <RadioGroup
-                    aria-label="quiz"
-                    name="directory"
-                    onChange={this.handleFormChange}
-                  >
-                    <FormControlLabel
-                      value="0"
-                      control={<Radio />}
-                      label="Yellow Pages (CA)"
-                    />
-                    <FormControlLabel
-                      value="1"
-                      control={<Radio />}
-                      label="Yellow Pages (US)"
-                    />
-                  </RadioGroup>
-                  <Grid item xs={2} />
+            <Box marginTop={5}>
+              <FormControl component="fieldset">
+                <Grid item>
+                  <FormLabel component="legend">
+                    Which Directory would you like to Search?
+                  </FormLabel>
                 </Grid>
-              </Grid>
-
-              <FormHelperText></FormHelperText>
-            </FormControl>
+                <Box marginTop={2}>
+                  <Grid container item xs={12}>
+                    <Grid item xs={2} />
+                    <Grid item xs={8}>
+                      <RadioGroup
+                        aria-label="quiz"
+                        name="directory"
+                        onChange={this.handleFormChange}
+                      >
+                        <FormControlLabel
+                          value="0"
+                          control={<Radio />}
+                          label="Yellow Pages (CA)"
+                        />
+                        <FormControlLabel
+                          value="1"
+                          control={<Radio />}
+                          label="Yellow Pages (US)"
+                        />
+                      </RadioGroup>
+                      <Grid item xs={2} />
+                    </Grid>
+                  </Grid>
+                </Box>
+                <FormHelperText></FormHelperText>
+              </FormControl>
+            </Box>
 
             <Grid container item direction="row" justify="center" spacing={3}>
               <Grid item>
                 <TextField
+                  color="secondary"
                   variant="standard"
                   name="search"
                   label="Search"
@@ -114,6 +118,7 @@ export default class Form extends Component {
               </Grid>
               <Grid item>
                 <TextField
+                  color="secondary"
                   variant="standard"
                   name="location"
                   label="Location"
@@ -122,10 +127,11 @@ export default class Form extends Component {
                 ></TextField>
               </Grid>
             </Grid>
-
-            <Button type="submit" variant="contained">
-              Submit
-            </Button>
+            <Box marginTop={5}>
+              <Button type="submit" variant="contained" color="secondary">
+                Submit
+              </Button>
+            </Box>
           </Grid>
         </form>
         {/* 
