@@ -6,7 +6,7 @@ export class Title extends Component {
   render() {
     return (
       <Typography component="div" variant="h2">
-        <Box marginTop={10} p={0}>
+        <Box marginTop={9} p={0}>
           ScholarshipScraper
         </Box>
       </Typography>
