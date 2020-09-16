@@ -14,6 +14,13 @@ class App extends React.Component {
     isFetching: false,
   };
 
+  updateFetching = (status) => {
+    this.setState({
+      isFetching: status,
+    });
+    console.log(this.state.isFetching);
+  };
+
   updateLinks = (data) => {
     this.setState({
       links: data,
@@ -55,9 +62,15 @@ class App extends React.Component {
             <Grid item xs={10} sm={8} md={6}>
               <Title />
               <AboutCard />
-              <Form updateResponse={this.updateLinks} />
+              <Form
+                updateResponse={this.updateLinks}
+                updateStatus={this.updateFetching}
+              />
 
-              <FoundTable data={this.state.links} />
+              <FoundTable
+                data={this.state.links}
+                status={this.state.isFetching}
+              />
             </Grid>
             <Grid item xs={1} sm={2} md={3} />
           </Grid>
