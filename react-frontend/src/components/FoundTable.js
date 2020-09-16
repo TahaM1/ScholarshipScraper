@@ -16,6 +16,7 @@ export class FoundTable extends Component {
     let rows;
 
     if (this.props.data.length > 0) {
+      //builds table rows if api data is recieved
       rows = this.props.data.map((link, i) => {
         return (
           <TableRow key={i}>
@@ -26,12 +27,14 @@ export class FoundTable extends Component {
         );
       });
     } else if (this.props.status === true) {
+      //means api is called but we are waiting on data
       rows = (
         <Box p={2}>
           <CircularProgress />
         </Box>
       );
     } else {
+      // api is not called
       rows = (
         <TableRow>
           <TableCell align="center">
