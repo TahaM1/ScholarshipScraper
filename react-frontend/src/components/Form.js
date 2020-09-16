@@ -37,6 +37,9 @@ export default class Form extends Component {
       location: this.state.location,
     };
 
+    this.props.updateStatus(true);
+    console.log("done");
+
     try {
       fetch("/api/scrape", {
         method: "post",
@@ -49,10 +52,11 @@ export default class Form extends Component {
         .then((res) => res.json())
         .then((data) => {
           this.props.updateResponse(data.links);
-          alert(JSON.stringify(data));
+          this.props.updateStatus(false);
         });
     } catch (error) {
       console.log(error);
+      this.props.updateStatus(false);
     }
   }
 
