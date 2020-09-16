@@ -6,6 +6,7 @@ import { Grid, Typography } from "@material-ui/core";
 import Header from "./components/Header";
 import AboutCard from "./components/AboutCard";
 import Title from "./components/Title";
+import FoundTable from "./components/FoundTable";
 
 class App extends React.Component {
   state = {
@@ -50,12 +51,15 @@ class App extends React.Component {
       <div className="App">
         <Grid container direction="column">
           <Grid container>
-            <Grid item xs={0} sm={2} md={3} />
-            <Grid item xs={12} sm={8} md={6}>
+            <Grid item xs={1} sm={2} md={3} />
+            <Grid item xs={10} sm={8} md={6}>
               <Title />
               <AboutCard />
+              <Form updateResponse={this.updateLinks} />
+
+              <FoundTable data={this.state.links} />
             </Grid>
-            <Grid item xs={0} sm={2} md={3} />
+            <Grid item xs={1} sm={2} md={3} />
           </Grid>
         </Grid>
       </div>
