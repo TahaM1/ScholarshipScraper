@@ -2,11 +2,23 @@ import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Form from "./components/Form";
+import { Grid, Typography } from "@material-ui/core";
+import Header from "./components/Header";
+import About from "./components/About";
+import Title from "./components/Title";
+import FoundTable from "./components/FoundTable";
 
 class App extends React.Component {
   state = {
-    links: [],
-    isFetching: false,
+    links: [], //scholarships links found
+    isFetching: false, //tracks if api is called
+  };
+
+  updateFetching = (status) => {
+    this.setState({
+      isFetching: status,
+    });
+    console.log(this.state.isFetching);
   };
 
   updateLinks = (data) => {
@@ -17,26 +29,27 @@ class App extends React.Component {
   };
 
   render() {
-    let message;
-
-    if (this.state.links.length > 0) {
-      message = this.state.links.map((link, i) => {
-        return (
-          <div key={`link-${i}`}>
-            <a href={link}>{link}</a>
-          </div>
-        );
-      });
-    } else {
-      message = <div>Api hasn't been called. Submit the form above.</div>;
-    }
-
     return (
       <div className="App">
-        <div>
-          <Form updateResponse={this.updateLinks} />
-        </div>
-        <div>{message}</div>
+        <Grid container direction="column">
+          <Grid container>
+            <Grid item xs={1} sm={2} md={3} />
+            <Grid item xs={10} sm={8} md={6}>
+              <Title />
+              <About />
+              <Form
+                updateResponse={this.updateLinks}
+                updateStatus={this.updateFetching}
+              />
+
+              <FoundTable
+                data={this.state.links}
+                status={this.state.isFetching}
+              />
+            </Grid>
+            <Grid item xs={1} sm={2} md={3} />
+          </Grid>
+        </Grid>
       </div>
     );
   }

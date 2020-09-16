@@ -1,4 +1,19 @@
 import React, { Component } from "react";
+import {
+  TextField,
+  FormControl,
+  Button,
+  FormHelperText,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  InputLabel,
+  Input,
+  Grid,
+  Typography,
+  Box,
+} from "@material-ui/core";
 
 export default class Form extends Component {
   constructor(props) {
@@ -22,8 +37,11 @@ export default class Form extends Component {
       location: this.state.location,
     };
 
+    this.props.updateStatus(true);
+
     try {
       fetch("/api/scrape", {
+        //send post request with needed data
         method: "post",
         mode: "cors", //sending json doesnt work with no-cors
         headers: {
@@ -33,10 +51,13 @@ export default class Form extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
+          //puts data into state
           this.props.updateResponse(data.links);
+          this.props.updateStatus(false);
         });
     } catch (error) {
       console.log(error);
+      this.props.updateStatus(false);
     }
   }
 
@@ -46,6 +67,7 @@ export default class Form extends Component {
     const name = inputForm.name;
 
     this.setState({
+      //tracks states of input form
       [name]: value,
     });
   }
@@ -53,8 +75,73 @@ export default class Form extends Component {
   render() {
     return (
       <div>
-        <p>Which Directory would you like to Search?</p>
+        <form onSubmit={this.handleFormSubmit}>
+          <Grid container direction="column" alignItems="center">
+            <Box marginTop={5}>
+              <FormControl component="fieldset">
+                <Grid item>
+                  <FormLabel component="legend" color="secondary">
+                    Which Directory would you like to Search?
+                  </FormLabel>
+                </Grid>
+                <Box marginTop={2}>
+                  <Grid container item xs={12}>
+                    <Grid item xs={2} />
+                    <Grid item xs={8}>
+                      <RadioGroup
+                        aria-label="quiz"
+                        name="directory"
+                        onChange={this.handleFormChange}
+                      >
+                        <FormControlLabel
+                          value="0"
+                          control={<Radio />}
+                          label="Yellow Pages (CA)"
+                        />
+                        <FormControlLabel
+                          value="1"
+                          control={<Radio />}
+                          label="Yellow Pages (US)"
+                        />
+                      </RadioGroup>
+                      <Grid item xs={2} />
+                    </Grid>
+                  </Grid>
+                </Box>
+                <FormHelperText></FormHelperText>
+              </FormControl>
+            </Box>
 
+            <Grid container item direction="row" justify="center" spacing={3}>
+              <Grid item>
+                <TextField
+                  color="secondary"
+                  variant="standard"
+                  name="search"
+                  label="Search"
+                  placeholder="Eg. Soccer Club"
+                  onChange={this.handleFormChange}
+                ></TextField>
+              </Grid>
+              <Grid item>
+                <TextField
+                  color="secondary"
+                  variant="standard"
+                  name="location"
+                  label="Location"
+                  placeholder="Eg. Toronto ON"
+                  onChange={this.handleFormChange}
+                ></TextField>
+              </Grid>
+            </Grid>
+            <Box marginTop={5}>
+              <Button type="submit" variant="contained" color="secondary">
+                Submit
+              </Button>
+            </Box>
+          </Grid>
+        </form>
+        {/* 
         <form onSubmit={this.handleFormSubmit}>
           <label>
             YellowPages Canada
@@ -108,7 +195,7 @@ export default class Form extends Component {
 
           <br />
           <input type="submit" value="Submit" />
-        </form>
+        </form> */}
       </div>
     );
   }
