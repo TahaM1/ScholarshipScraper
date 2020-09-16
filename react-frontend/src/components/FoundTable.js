@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   Box,
+  CircularProgress,
   Grid,
   Table,
   TableBody,
@@ -24,6 +25,12 @@ export class FoundTable extends Component {
           </TableRow>
         );
       });
+    } else if (this.props.status === true) {
+      rows = (
+        <Box p={2}>
+          <CircularProgress />
+        </Box>
+      );
     } else {
       rows = (
         <TableRow>
@@ -39,8 +46,8 @@ export class FoundTable extends Component {
         <Box p={4}>
           <Grid container direction="column">
             <Grid container>
-              <Grid item xs={0} sm={2} md={3} />
-              <Grid item xs={12} sm={8} md={6} justify="center">
+              <Grid item xs={0} sm={1} md={2} />
+              <Grid item xs={12} sm={10} md={8} justify="center">
                 <TableContainer>
                   <Table>
                     <TableHead>
@@ -54,7 +61,7 @@ export class FoundTable extends Component {
                   </Table>
                 </TableContainer>
               </Grid>
-              <Grid item xs={0} sm={2} md={3} />
+              <Grid item xs={0} sm={1} md={2} />
             </Grid>
           </Grid>
         </Box>
