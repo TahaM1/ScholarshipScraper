@@ -38,10 +38,10 @@ export default class Form extends Component {
     };
 
     this.props.updateStatus(true);
-    console.log("done");
 
     try {
       fetch("/api/scrape", {
+        //send post request with needed data
         method: "post",
         mode: "cors", //sending json doesnt work with no-cors
         headers: {
@@ -51,6 +51,7 @@ export default class Form extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
+          //puts data into state
           this.props.updateResponse(data.links);
           this.props.updateStatus(false);
         });
@@ -66,6 +67,7 @@ export default class Form extends Component {
     const name = inputForm.name;
 
     this.setState({
+      //tracks states of input form
       [name]: value,
     });
   }

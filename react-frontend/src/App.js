@@ -4,14 +4,14 @@ import "./App.css";
 import Form from "./components/Form";
 import { Grid, Typography } from "@material-ui/core";
 import Header from "./components/Header";
-import AboutCard from "./components/AboutCard";
+import About from "./components/About";
 import Title from "./components/Title";
 import FoundTable from "./components/FoundTable";
 
 class App extends React.Component {
   state = {
-    links: [],
-    isFetching: false,
+    links: [], //scholarships links found
+    isFetching: false, //tracks if api is called
   };
 
   updateFetching = (status) => {
@@ -29,31 +29,6 @@ class App extends React.Component {
   };
 
   render() {
-    let message;
-
-    if (this.state.links.length > 0) {
-      message = this.state.links.map((link, i) => {
-        return (
-          <div key={`link-${i}`}>
-            <a href={link}>{link}</a>
-          </div>
-        );
-      });
-    } else {
-      message = <div>Api hasn't been called. Submit the form above.</div>;
-    }
-
-    const old = () => {
-      return (
-        <div>
-          <div>
-            <Form updateResponse={this.updateLinks} />
-          </div>
-          <div>{message}</div>
-        </div>
-      );
-    };
-
     return (
       <div className="App">
         <Grid container direction="column">
@@ -61,7 +36,7 @@ class App extends React.Component {
             <Grid item xs={1} sm={2} md={3} />
             <Grid item xs={10} sm={8} md={6}>
               <Title />
-              <AboutCard />
+              <About />
               <Form
                 updateResponse={this.updateLinks}
                 updateStatus={this.updateFetching}
