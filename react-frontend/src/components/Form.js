@@ -36,23 +36,24 @@ export default class Form extends Component {
       search: this.state.search,
       location: this.state.location,
     };
-    alert(JSON.stringify(data));
-    // try {
-    //   fetch("/api/scrape", {
-    //     method: "post",
-    //     mode: "cors", //sending json doesnt work with no-cors
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       this.props.updateResponse(data.links);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+
+    try {
+      fetch("/api/scrape", {
+        method: "post",
+        mode: "cors", //sending json doesnt work with no-cors
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          this.props.updateResponse(data.links);
+          alert(JSON.stringify(data));
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleFormChange(event) {
@@ -73,7 +74,7 @@ export default class Form extends Component {
             <Box marginTop={5}>
               <FormControl component="fieldset">
                 <Grid item>
-                  <FormLabel component="legend">
+                  <FormLabel component="legend" color="secondary">
                     Which Directory would you like to Search?
                   </FormLabel>
                 </Grid>
