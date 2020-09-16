@@ -38,7 +38,7 @@ export default class Form extends Component {
     };
 
     this.props.updateStatus(true);
-
+    this.props.updateResponse([]);
     try {
       fetch("/api/scrape", {
         //send post request with needed data
