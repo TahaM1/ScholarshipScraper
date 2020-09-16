@@ -52,6 +52,7 @@ export default class Form extends Component {
         .then((res) => res.json())
         .then((data) => {
           //puts data into state
+          console.log(data.links);
           this.props.updateResponse(data.links);
           this.props.updateStatus(false);
         });

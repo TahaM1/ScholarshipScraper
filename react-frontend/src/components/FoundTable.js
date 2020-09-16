@@ -37,9 +37,7 @@ export class FoundTable extends Component {
       // api is not called
       rows = (
         <TableRow>
-          <TableCell align="center">
-            The form has not been submitted yet.
-          </TableCell>
+          <TableCell align="center">Nothing has been Found.</TableCell>
         </TableRow>
       );
     }
