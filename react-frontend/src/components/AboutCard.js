@@ -24,7 +24,7 @@ const AboutCard = () => {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <Typography variant="overline" component="p">
+    <Typography variant="overline" component="p" color="textSecondary">
       Find LOCAL scholarships faster
     </Typography>
   );

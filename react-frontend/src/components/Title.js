@@ -5,9 +5,9 @@ import "fontsource-roboto";
 export class Title extends Component {
   render() {
     return (
-      <Typography component="div" variant="h2">
+      <Typography component="div" variant="h2" color="textPrimary">
         <Box marginTop={9} p={0}>
-          ScholarshipScraper
+          Scholarship Scraper
         </Box>
       </Typography>
     );
