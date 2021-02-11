@@ -101,6 +101,7 @@ export default class Form extends Component {
                         />
                         <FormControlLabel
                           value="1"
+                          disabled
                           control={<Radio />}
                           label="Yellow Pages (US)"
                         />
