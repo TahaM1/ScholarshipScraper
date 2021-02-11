@@ -39,10 +39,6 @@ def api():
 
     print("Done")
     print(LinkList)
-    if not LinkList:
-        return render_template(
-            "apology.html", text="None of those sites have scholarships",
-        )
 
     return {"links": LinkList}
 
