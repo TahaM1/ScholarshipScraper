@@ -8,26 +8,29 @@ import requests
 
 
 def scrapeSite(htmlDoc):
+    try:
+        # Parses the Bytes and returns a ElementTree object
+        htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser(encoding="utf-8"))
 
-    # Parses the Bytes and returns a ElementTree object
-    htmlTree = etree.parse(io.BytesIO(htmlDoc), etree.HTMLParser(encoding="utf-8"))
+        # Note: Xpath is a language for navigating through a XML file structure
 
-    # Note: Xpath is a language for navigating through a XML file structure
+        # Querys HTML tree for <a> tags containing keywords
+        result = htmlTree.xpath(
+            "//a[contains(@href,'scholarship') or contains(@href,'bursar')]"
+        )
 
-    # Querys HTML tree for <a> tags containing keywords
-    result = htmlTree.xpath(
-        "//a[contains(@href,'scholarship') or contains(@href,'bursar')]"
-    )
-
-    # Direct link is found
-    if result:
-        # finds first URL that is accessible
-        for element in result:
-            url = element.attrib["href"]
-            if doesWebsiteExist(url):
-                return url
-    # No accessible URLs were found
-    return None
+        # Direct link is found
+        if result:
+            # finds first URL that is accessible
+            for element in result:
+                url = element.attrib["href"]
+                if doesWebsiteExist(url):
+                    return url
+        # No accessible URLs were found
+        return None
+    except:
+        assert "Error while parsing HTML"
+        return None
 
 
 def findALink(url):

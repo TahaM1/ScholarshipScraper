@@ -12,6 +12,13 @@ import {
 } from "@material-ui/core";
 
 export class FoundTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasBeenCalled: false,
+    };
+  }
+
   render() {
     let rows;
 
@@ -33,11 +40,22 @@ export class FoundTable extends Component {
           <CircularProgress />
         </Box>
       );
+      this.state.hasBeenCalled = true;
+    } else if (this.state.hasBeenCalled == true) {
+      rows = (
+        <TableRow>
+          <TableCell align="center">
+            No scholarships found. Try again with different terms.
+          </TableCell>
+        </TableRow>
+      );
     } else {
       // api is not called
       rows = (
         <TableRow>
-          <TableCell align="center">Nothing has been Found.</TableCell>
+          <TableCell align="center">
+            You haven't submitted anything. Yet...
+          </TableCell>
         </TableRow>
       );
     }

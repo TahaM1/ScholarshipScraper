@@ -32,9 +32,12 @@ def embedIntoURL(baseURLIndex, keywords, location):
 
 # strips excess from urls found based on the baseURL(directory)
 def formatLinks(baseURLIndex, links):
+    print(links)
     if baseURLIndex == 0:
         for i in range(len(links)):
-            links[i] = unquote(links[i], encoding="utf-8").split("redirect=", 2)[1]
+            if "gourl" in str(links[i]):
+                links[i] = unquote(links[i], encoding="utf-8").split("redirect=", 2)[1]
+
         return links
     elif baseURLIndex == 1:
         pass
