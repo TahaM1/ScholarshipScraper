@@ -33,6 +33,7 @@ export class FoundTable extends Component {
           </TableRow>
         );
       });
+      this.state.hasBeenCalled = true;
     } else if (this.props.status === true) {
       //means api is called but we are waiting on data
       rows = (
